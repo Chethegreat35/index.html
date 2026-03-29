@@ -21,7 +21,7 @@ body {
 /* HERO */
 .hero {
   height: 100vh;
-  background: url('https://images.unsplash.com/photo-1519741497674-611481863552') center/cover no-repeat;
+  background: url('VOTRE_PHOTO_MARIÉS.jpg') center/cover no-repeat;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -62,26 +62,16 @@ h1 {
   transition: 1s;
 }
 
-/* Section 1 : village enneigé */
-.section.village::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: url('https://images.unsplash.com/photo-1482192596544-9eb780fc7f66') center/cover no-repeat;
-  background-size: cover;
-  opacity: 0.2; /* laisse bien le texte visible */
-  z-index: 1;
-}
-
-/* Section 2 : vignes enneigées */
+/* Section vignes avec parallax */
 .section.vignes::before {
   content: "";
   position: absolute;
   inset: 0;
   background: url('https://cdn.pixabay.com/photo/2018/10/14/21/16/vineyard-snow-winter-vine-3741802_1280.jpg') center/cover no-repeat;
   background-size: cover;
-  opacity: 0.25;
   z-index: 1;
+  transform: translateY(0);
+  transition: transform 0.3s ease-out;
 }
 
 .section > * {
@@ -128,7 +118,7 @@ h1 {
   text-decoration: none;
 }
 
-/* NEIGE PLUS EPAISSE */
+/* NEIGE */
 .snowflake {
   position: fixed;
   top: -10px;
@@ -155,27 +145,19 @@ h1 {
   </div>
 </div>
 
-<!-- INFOS -->
-<div class="section village">
+<!-- INFOS + VIGNES -->
+<div class="section vignes">
   <div class="card">
     <div class="divider"></div>
     <p><strong>12 décembre 2026</strong></p>
     <p>Domaine de la Croix Rochefort<br>Saint-Didier-sur-Beaujeu</p>
-  </div>
-</div>
-
-<!-- INFORMATIONS -->
-<div class="section vignes">
-  <div class="card">
-    <h3>Informations</h3>
-    <div class="divider"></div>
     <p>Les animaux domestiques ne sont pas acceptés</p>
     <p>Merci de nous signaler toute allergie alimentaire</p>
   </div>
 </div>
 
 <!-- HEBERGEMENT -->
-<div class="section village">
+<div class="section">
   <div class="card">
     <h3>Hébergement</h3>
     <div class="divider"></div>
@@ -201,7 +183,7 @@ setInterval(() => {
     days + " jours • " + hours + " heures";
 }, 1000);
 
-// SCROLL ANIMATION
+// SCROLL ANIMATION & PARALLAX VIGNES
 const sections = document.querySelectorAll('.section');
 
 window.addEventListener('scroll', () => {
@@ -209,6 +191,14 @@ window.addEventListener('scroll', () => {
     const position = section.getBoundingClientRect().top;
     if(position < window.innerHeight - 100) {
       section.classList.add('visible');
+    }
+    // Parallax subtil pour vignes
+    if(section.classList.contains('vignes')) {
+      const offset = window.scrollY * 0.2; // vitesse parallax
+      section.querySelector('::before');
+      section.style.setProperty('--parallax', `${offset}px`);
+      section.style.backgroundPosition = `center ${-offset}px`;
+      section.querySelector('::before').style.transform = `translateY(${offset}px)`;
     }
   });
 });
