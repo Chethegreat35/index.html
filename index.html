@@ -15,6 +15,7 @@ body {
   color: #3e3e3e;
   text-align: center;
   overflow-x: hidden;
+  background: #f5f2ee;
 }
 
 /* HERO */
@@ -52,11 +53,11 @@ h1 {
   font-size: 1.2em;
 }
 
-/* SECTIONS AVEC IMAGE HIVER */
+/* SECTIONS AVEC VILLAGE */
 .section {
   padding: 80px 20px;
-  background: url('https://images.unsplash.com/photo-1482192596544-9eb780fc7f66') center/cover no-repeat;;
-  background-attachment: fixed;
+  background: url('https://images.unsplash.com/photo-1482192596544-9eb780fc7f66') center/cover no-repeat;
+  background-size: cover;
   position: relative;
   opacity: 0;
   transform: translateY(40px);
@@ -67,7 +68,7 @@ h1 {
   content: "";
   position: absolute;
   inset: 0;
-  background: rgba(255,255,255,0.85);
+  background: rgba(255,255,255,0.4); /* rend le village visible mais texte lisible */
 }
 
 .section > * {
@@ -114,7 +115,7 @@ h1 {
   text-decoration: none;
 }
 
-/* NEIGE PLUS VISIBLE */
+/* NEIGE PLUS EPAISSE */
 .snowflake {
   position: fixed;
   top: -10px;
@@ -187,7 +188,7 @@ setInterval(() => {
     days + " jours • " + hours + " heures";
 }, 1000);
 
-// SCROLL
+// SCROLL ANIMATION
 const sections = document.querySelectorAll('.section');
 
 window.addEventListener('scroll', () => {
