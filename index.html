@@ -15,15 +15,13 @@ body {
   color: #3e3e3e;
   text-align: center;
   overflow-x: hidden;
-  background: #f5f2ee;
 }
 
-/* IMAGE HERO */
+/* HERO */
 .hero {
   height: 100vh;
   background: url('https://images.unsplash.com/photo-1519741497674-611481863552') center/cover no-repeat;
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
   color: white;
@@ -41,7 +39,6 @@ body {
 .hero-content {
   position: relative;
   z-index: 2;
-  animation: fadeIn 2s ease;
 }
 
 h1 {
@@ -55,12 +52,27 @@ h1 {
   font-size: 1.2em;
 }
 
-/* SECTION */
+/* SECTIONS AVEC IMAGE HIVER */
 .section {
   padding: 80px 20px;
+  background: url('https://images.unsplash.com/photo-1549887534-3db2c6c9f8f1') center/cover no-repeat;
+  background-attachment: fixed;
+  position: relative;
   opacity: 0;
   transform: translateY(40px);
   transition: 1s;
+}
+
+.section::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(255,255,255,0.85);
+}
+
+.section > * {
+  position: relative;
+  z-index: 2;
 }
 
 .section.visible {
@@ -68,13 +80,14 @@ h1 {
   transform: translateY(0);
 }
 
+/* CARD */
 .card {
-  background: white;
+  background: rgba(255,255,255,0.9);
   margin: 20px auto;
   padding: 30px;
   border-radius: 20px;
   max-width: 500px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
 }
 
 .divider {
@@ -101,23 +114,18 @@ h1 {
   text-decoration: none;
 }
 
-/* NEIGE */
+/* NEIGE PLUS VISIBLE */
 .snowflake {
   position: fixed;
   top: -10px;
   color: white;
-  font-size: 0.6em;
-  opacity: 0.6;
+  font-size: 1em;
+  opacity: 0.9;
   animation: fall linear infinite;
 }
 
 @keyframes fall {
   to { transform: translateY(100vh); }
-}
-
-@keyframes fadeIn {
-  from {opacity:0;}
-  to {opacity:1;}
 }
 </style>
 </head>
@@ -148,7 +156,7 @@ h1 {
     <h3>Informations</h3>
     <div class="divider"></div>
     <p>Les animaux domestiques ne sont pas acceptés</p>
-    <p>Merci de nous signaler toute allergie</p>
+    <p>Merci de nous signaler toute allergie alimentaire</p>
   </div>
 </div>
 
@@ -168,7 +176,7 @@ h1 {
 // COUNTDOWN
 const targetDate = new Date("December 12, 2026 15:00:00").getTime();
 
-const countdownFunction = setInterval(function() {
+setInterval(() => {
   const now = new Date().getTime();
   const distance = targetDate - now;
 
@@ -177,10 +185,9 @@ const countdownFunction = setInterval(function() {
 
   document.getElementById("countdown").innerHTML =
     days + " jours • " + hours + " heures";
-
 }, 1000);
 
-// SCROLL ANIMATION
+// SCROLL
 const sections = document.querySelectorAll('.section');
 
 window.addEventListener('scroll', () => {
@@ -192,22 +199,20 @@ window.addEventListener('scroll', () => {
   });
 });
 
-// NEIGE
+// NEIGE PLUS EPAISSE
 function createSnowflake() {
   const snowflake = document.createElement("div");
   snowflake.classList.add("snowflake");
   snowflake.innerHTML = "•";
   snowflake.style.left = Math.random() * window.innerWidth + "px";
-  snowflake.style.animationDuration = (Math.random() * 5 + 3) + "s";
+  snowflake.style.animationDuration = (Math.random() * 4 + 2) + "s";
 
   document.body.appendChild(snowflake);
 
-  setTimeout(() => {
-    snowflake.remove();
-  }, 7000);
+  setTimeout(() => snowflake.remove(), 6000);
 }
 
-setInterval(createSnowflake, 300);
+setInterval(createSnowflake, 150);
 </script>
 
 </body>
