@@ -60,18 +60,21 @@ h1 {
   opacity: 0;
   transform: translateY(40px);
   transition: 1s;
+  background-position: center top;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
-/* Section vignes avec parallax */
-.section.vignes::before {
-  content: "";
+.section.vignes {
+  background-image: url('https://cdn.pixabay.com/photo/2018/10/14/21/16/vineyard-snow-winter-vine-3741802_1280.jpg');
+}
+
+/* overlay semi-transparent pour lisibilité */
+.section-overlay {
   position: absolute;
   inset: 0;
-  background: url('https://cdn.pixabay.com/photo/2018/10/14/21/16/vineyard-snow-winter-vine-3741802_1280.jpg') center/cover no-repeat;
-  background-size: cover;
+  background: rgba(255,255,255,0.25);
   z-index: 1;
-  transform: translateY(0);
-  transition: transform 0.3s ease-out;
 }
 
 .section > * {
@@ -147,6 +150,7 @@ h1 {
 
 <!-- INFOS + VIGNES -->
 <div class="section vignes">
+  <div class="section-overlay"></div>
   <div class="card">
     <div class="divider"></div>
     <p><strong>12 décembre 2026</strong></p>
@@ -171,34 +175,27 @@ h1 {
 <script>
 // COUNTDOWN
 const targetDate = new Date("December 12, 2026 15:00:00").getTime();
-
 setInterval(() => {
   const now = new Date().getTime();
   const distance = targetDate - now;
-
   const days = Math.floor(distance / (1000 * 60 * 60 * 24));
   const hours = Math.floor((distance / (1000 * 60 * 60)) % 24);
-
   document.getElementById("countdown").innerHTML =
     days + " jours • " + hours + " heures";
 }, 1000);
 
-// SCROLL ANIMATION & PARALLAX VIGNES
+// SCROLL ANIMATION & PARALLAX
 const sections = document.querySelectorAll('.section');
-
 window.addEventListener('scroll', () => {
+  const scrollTop = window.scrollY;
   sections.forEach(section => {
     const position = section.getBoundingClientRect().top;
     if(position < window.innerHeight - 100) {
       section.classList.add('visible');
     }
-    // Parallax subtil pour vignes
+    // Parallax subtil uniquement pour la section vignes
     if(section.classList.contains('vignes')) {
-      const offset = window.scrollY * 0.2; // vitesse parallax
-      section.querySelector('::before');
-      section.style.setProperty('--parallax', `${offset}px`);
-      section.style.backgroundPosition = `center ${-offset}px`;
-      section.querySelector('::before').style.transform = `translateY(${offset}px)`;
+      section.style.backgroundPosition = `center ${-scrollTop * 0.2}px`;
     }
   });
 });
@@ -210,12 +207,9 @@ function createSnowflake() {
   snowflake.innerHTML = "•";
   snowflake.style.left = Math.random() * window.innerWidth + "px";
   snowflake.style.animationDuration = (Math.random() * 4 + 2) + "s";
-
   document.body.appendChild(snowflake);
-
   setTimeout(() => snowflake.remove(), 6000);
 }
-
 setInterval(createSnowflake, 150);
 </script>
 
