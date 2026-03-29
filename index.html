@@ -21,7 +21,7 @@ body {
 /* HERO */
 .hero {
   height: 100vh;
-  background: url('https://cdn.pixabay.com/photo/2018/10/14/21/16/vineyard-snow-winter-vine-3741802_1280.jpg') center/cover no-repeat;
+  background: url('https://images.unsplash.com/photo-1519741497674-611481863552') center/cover no-repeat;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -53,22 +53,35 @@ h1 {
   font-size: 1.2em;
 }
 
-/* SECTIONS AVEC VILLAGE */
+/* SECTIONS */
 .section {
   padding: 80px 20px;
-  background: url('https://images.unsplash.com/photo-1482192596544-9eb780fc7f66') center/cover no-repeat;
-  background-size: cover;
   position: relative;
   opacity: 0;
   transform: translateY(40px);
   transition: 1s;
 }
 
-.section::before {
+/* Section 1 : village enneigé */
+.section.village::before {
   content: "";
   position: absolute;
   inset: 0;
-  background: rgba(255,255,255,0.2); /* rend le village visible mais texte lisible */
+  background: url('https://images.unsplash.com/photo-1482192596544-9eb780fc7f66') center/cover no-repeat;
+  background-size: cover;
+  opacity: 0.2; /* laisse bien le texte visible */
+  z-index: 1;
+}
+
+/* Section 2 : vignes enneigées */
+.section.vignes::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: url('https://cdn.pixabay.com/photo/2018/10/14/21/16/vineyard-snow-winter-vine-3741802_1280.jpg') center/cover no-repeat;
+  background-size: cover;
+  opacity: 0.25;
+  z-index: 1;
 }
 
 .section > * {
@@ -143,7 +156,7 @@ h1 {
 </div>
 
 <!-- INFOS -->
-<div class="section">
+<div class="section village">
   <div class="card">
     <div class="divider"></div>
     <p><strong>12 décembre 2026</strong></p>
@@ -152,7 +165,7 @@ h1 {
 </div>
 
 <!-- INFORMATIONS -->
-<div class="section">
+<div class="section vignes">
   <div class="card">
     <h3>Informations</h3>
     <div class="divider"></div>
@@ -162,7 +175,7 @@ h1 {
 </div>
 
 <!-- HEBERGEMENT -->
-<div class="section">
+<div class="section village">
   <div class="card">
     <h3>Hébergement</h3>
     <div class="divider"></div>
@@ -200,7 +213,7 @@ window.addEventListener('scroll', () => {
   });
 });
 
-// NEIGE PLUS EPAISSE
+// NEIGE
 function createSnowflake() {
   const snowflake = document.createElement("div");
   snowflake.classList.add("snowflake");
